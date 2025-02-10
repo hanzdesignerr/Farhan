@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Kelompok 6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        input[type="text"], input[type="radio"] {
+            margin-bottom: 12px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hasil-container {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .hasil-box {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .hasil-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .hapus-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .hapus-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulir Pendaftaran Ekstrakurikuler</h2>
+        <form id="pilihanForm">
+            <label for="nama">Nama Anda:</label>
+            <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
+
+            <h3>Pilih Jurusan</h3>
+            <label><input type="radio" name="jurusan" value="TSM"> TSM</label>
+            <label><input type="radio" name="jurusan" value="TKR"> TKR</label>
+            <label><input type="radio" name="jurusan" value="LP"> LP</label>
+            <label><input type="radio" name="jurusan" value="TO"> TO</label>
+            <label><input type="radio" name="jurusan" value="RPL"> RPL</label>
+            <label><input type="radio" name="jurusan" value="TKJ"> TKJ</label>
+
+            <h3>Pilih Kelas</h3>
+            <label><input type="radio" name="kelas" value="X"> X</label>
+            <label><input type="radio" name="kelas" value="XI"> XI</label>
+            <label><input type="radio" name="kelas" value="XII"> XII</label>
+
+            <h3>Pilih Ekstrakurikuler</h3>
+            <label><input type="radio" name="ekstrakurikuler" value="Silat"> Silat</label>
+            <label><input type="radio" name="ekstrakurikuler" value="Futsal"> Futsal</label>
+            <label><input type="radio" name="ekstrakurikuler" value="PMR"> PMR</label>
+            <label><input type="radio" name="ekstrakurikuler" value="Pramuka"> Pramuka</label>
+            <label><input type="radio" name="ekstrakurikuler" value="OSIS"> OSIS</label>
+            <label><input type="radio" name="ekstrakurikuler" value="Badminton"> Badminton</label>
+            <label><input type="radio" name="ekstrakurikuler" value="Renang"> Renang</label>
+
+            <h3>Pilih Jenis Kelamin</h3>
+            <label><input type="radio" name="jenisKelamin" value="Laki-laki"> Laki-laki</label>
+            <label><input type="radio" name="jenisKelamin" value="Perempuan"> Perempuan</label>
+
+            <button type="button" onclick="submitForm()">Kirim</button>
+        </form>
+    </div>
+
+    <div class="hasil-container" id="hasilContainer"></div>
+
+    <script>
+        function submitForm() {
+            var nama = document.getElementById('nama').value;
+            var jurusan = document.querySelector('input[name="jurusan"]:checked');
+            var kelas = document.querySelector('input[name="kelas"]:checked');
+            var ekstrakurikuler = document.querySelector('input[name="ekstrakurikuler"]:checked');
+            var jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked');
+
+            if (nama && jurusan && kelas && ekstrakurikuler && jenisKelamin) {
+                var hasilContainer = document.getElementById('hasilContainer');
+
+                var hasilBox = document.createElement('div');
+                hasilBox.classList.add('hasil-box');
+
+                hasilBox.innerHTML = `
+                    <div class="hasil-title">Hasil Pilihan:</div>
+                    <p>Nama: ${nama}</p>
+                    <p>Jurusan: ${jurusan.value}</p>
+                    <p>Kelas: ${kelas.value}</p>
+                    <p>Ekstrakurikuler: ${ekstrakurikuler.value}</p>
+                    <p>Jenis Kelamin: ${jenisKelamin.value}</p>
+                    <button class="hapus-btn" onclick="hapusHasil(this)">Hapus</button>
+                `;
+
+                hasilContainer.appendChild(hasilBox);
+            } else {
+                alert("Harap isi semua bagian sebelum mengirim.");
+            }
+        }
+
+        function hapusHasil(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
